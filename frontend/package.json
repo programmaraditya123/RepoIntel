@@ -2,21 +2,30 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "main" : "main.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "web": "next dev",
+    "electron": "electron .",
+    "dev": "concurrently \"npm run web\" \"wait-on http://localhost:3000 && npm run electron\"",
+    "build:web": "next build",
+    "build:electron": "npx electron-builder",
+    "build": "npm run build:web && npm run build:electron",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^41.1.0",
     "next": "16.2.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "wait-on": "^9.0.4"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron-builder": "^26.8.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "typescript": "^5"
